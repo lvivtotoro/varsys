@@ -27,6 +27,7 @@ public class MidnightLang {
 		HashMap<String, Object> vars = new HashMap<String, Object>();
 		boolean whileStatement = false;
 		int whileIndex = 0;
+		int whileCount = 0;
 		for (int c = 0; c < content.length; c++) {
 			if (content[c] == '>' && content[c + 1] == '"') {
 				String toPrint = "";
@@ -81,15 +82,15 @@ public class MidnightLang {
 				String varName = "";
 				String varValue = "";
 				int varValueIndex = 0;
-				for(int c1 = c; c1 < content.length; c1++) {
-					if(content[c1] == ' ') {
+				for (int c1 = c; c1 < content.length; c1++) {
+					if (content[c1] == ' ') {
 						varValueIndex = c1 + 1;
 						break;
 					}
 					varName = varName + content[c1];
 				}
-				for(int c1 = varValueIndex; c < content.length; c1++) {
-					if(content[c1] == ';') {
+				for (int c1 = varValueIndex; c < content.length; c1++) {
+					if (content[c1] == ';') {
 						varName = varName.substring(1);
 						break;
 					}
@@ -102,17 +103,57 @@ public class MidnightLang {
 				if (!whileStatement) {
 					whileStatement = true;
 					whileIndex = c + 1;
+					whileCount = 0;
+					vars.put("whileIndex", new Double(whileCount));
 				} else {
 					c = whileIndex;
+					whileCount++;
+					vars.remove("whileIndex");
+					vars.put("whileIndex", new Double(whileCount));
 				}
 			} else if (content[c] == '!') {
 				if (whileStatement) {
 					whileStatement = false;
 				}
+			} else if(content[c] == '?') {
+				String varName = "";
+				String varValue = "";
+				int nextIndex = 0;
+				for(int c1 = c + 1; c1 < content.length; c1++) {
+					if(content[c1] == '=') {
+						nextIndex = c1 + 1;
+						break;
+					}
+					varName = varName + content[c1];
+				}
+				for(int c1 = nextIndex; c1 < content.length; c1++) {
+					if(content[c1] == ';') {
+						nextIndex = c1 + 1;
+						break;
+					}
+					varValue = varValue + content[c1];
+				}
+				if(!vars.get(varName).toString().equals(varValue)) {
+					for(int c1 = nextIndex; c1 < content.length; c1++) {
+						if(content[c1] == '/') {
+							c = c1 + 1;
+							break;
+						}
+					}
+				}
 			}
 		}
 	}
-
+	
+	public static boolean isNumber(String s) {
+		try {
+			Double.parseDouble(s);
+		} catch(NumberFormatException e) {
+			return false;
+		}
+		return true;
+	}
+	
 	public static boolean isLatinLetter(char c) {
 		return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
 	}
