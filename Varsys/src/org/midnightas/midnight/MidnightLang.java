@@ -41,7 +41,7 @@ public class MidnightLang {
 				String toPrint = "";
 				for (int c1 = c + 2; c1 < content.length; c1++) {
 					if (content[c1] == ';') {
-						System.out.println(Integer.parseInt(toPrint));
+						System.out.println(Double.parseDouble(toPrint));
 						break;
 					}
 					toPrint = toPrint + content[c1];
@@ -97,7 +97,7 @@ public class MidnightLang {
 				}
 				if (vars.containsKey(varName))
 					vars.remove(varName);
-				vars.put(varName, Integer.parseInt(varValue));
+				vars.put(varName, Double.parseDouble(varValue));
 			} else if (content[c] == '@') {
 				if (!whileStatement) {
 					whileStatement = true;
