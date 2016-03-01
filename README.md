@@ -7,10 +7,9 @@ Download in the releases page on GitHub.
 
 ## Usage
 Varsys files are suffixed with .var  
-To interpret these files open up the Terminal or the Command Prompt.  
-Type in:  
-`java -jar varsys.jar (file location)`
-If you're on Linux or Mac put `./` before `varsys.jar`.  
+To interpret these files download the files in on releases page.
+Extract the zip file and run _varsys.bat_ if you're using Windows or _varsys.sh_ if you're using Linux or Mac.
+Then do as the script says.
 
 ## Syntax
 Commands in Varsys are single symbols:  
