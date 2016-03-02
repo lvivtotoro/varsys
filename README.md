@@ -21,6 +21,21 @@ Commands in Varsys are single symbols:
 * `;` is for ending commands;
 * `?` is for starting if statements (from 0.6)
 * `/` is for ending if statements (from 0.6)
+* `<` is for taking input (from 0.7)
+### If Statements (from 0.6)
+If statements are quite easy, currently there is only the equals operator to use in an if statement (=):
+    ?something=lol;
+    >"something is lol!";
+    /
+The `?` operator starts an if statement.  
+You may compare strings and numbers.  
+If the if statement is true then it prints "something is lol!".
+The `/` operator ends the if statement.
+
+### When to use the Semi-colon
+Some operators don't require any semi-colons.
+These operators are the ones that don't require additional data to work such as ! @
+For these operators to function you must put a new line instead.
 
 ## Automatically Generated Variables
 When performing certain commands AGVs may be created.  
