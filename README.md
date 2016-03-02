@@ -18,7 +18,14 @@ Commands in Varsys are single symbols:
 * `!` is to break from a while statement
 * `=` is for assigning variables.
 * `#` is for telling Varsys that the thing you're dealing with is a number.
-* ';' is for ending commands;
+* `;` is for ending commands;
+* `?` is for starting if statements (from 0.6)
+* `/` is for ending if statements (from 0.6)
+
+## Automatically Generated Variables
+When performing certain commands AGVs may be created.  
+There is currently only one:
+* whileIndex - Is created when a while loop has started and deletes itself when the loop has ended. whileIndex holds the amount of times a loop was completed.
 
 ## Examples
     @
@@ -38,3 +45,12 @@ This is like the last program, but with integers.
     >"Muhaha";
     >#999;
 This program first prints "Muhaha" then prints 999.
+
+    @
+    >whileIndex;
+    ?whileIndex=10000.0;
+    !
+    /
+    @
+This program performs a while loop until it was looped 10000 times.  
+This program only works from 0.6.
