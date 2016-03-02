@@ -1,6 +1,7 @@
 package org.midnightas.midnight;
 
 import java.io.File;
+import java.io.FilterInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -8,10 +9,12 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Scanner;
 
 public class MidnightLang {
 
 	public static Character[] ALPHABET;
+	public static Scanner scanner;
 
 	public static final void main(String[] args) throws IOException {
 		ALPHABET = new Character[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
@@ -20,6 +23,11 @@ public class MidnightLang {
 		for (Character c : ALPHABET)
 			NEWALPHABET.add(Character.toUpperCase(c.charValue()));
 		ALPHABET = NEWALPHABET.toArray(new Character[NEWALPHABET.size()]);
+		scanner = new Scanner(new FilterInputStream(System.in) {
+			@Override
+			public void close() throws IOException {
+			}
+		});
 		interpret(new String(Files.readAllBytes(Paths.get(new File(args[0]).toURI()))).toCharArray());
 	}
 
@@ -114,46 +122,56 @@ public class MidnightLang {
 			} else if (content[c] == '!') {
 				if (whileStatement) {
 					whileStatement = false;
+					vars.remove("whileIndex");
 				}
-			} else if(content[c] == '?') {
+			} else if (content[c] == '?') {
 				String varName = "";
 				String varValue = "";
 				int nextIndex = 0;
-				for(int c1 = c + 1; c1 < content.length; c1++) {
-					if(content[c1] == '=') {
+				for (int c1 = c + 1; c1 < content.length; c1++) {
+					if (content[c1] == '=') {
 						nextIndex = c1 + 1;
 						break;
 					}
 					varName = varName + content[c1];
 				}
-				for(int c1 = nextIndex; c1 < content.length; c1++) {
-					if(content[c1] == ';') {
+				for (int c1 = nextIndex; c1 < content.length; c1++) {
+					if (content[c1] == ';') {
 						nextIndex = c1 + 1;
 						break;
 					}
 					varValue = varValue + content[c1];
 				}
-				if(!vars.get(varName).toString().equals(varValue)) {
-					for(int c1 = nextIndex; c1 < content.length; c1++) {
-						if(content[c1] == '/') {
+				if (!vars.get(varName).toString().equals(varValue)) {
+					for (int c1 = nextIndex; c1 < content.length; c1++) {
+						if (content[c1] == '/') {
 							c = c1 + 1;
 							break;
 						}
 					}
 				}
+			} else if(content[c] == '<') {
+				String varName = "";
+				for(int c1 = c + 1; c1 < content.length; c1++) {
+					if(content[c1] == ';') {
+						break;
+					}
+					varName = varName + content[c1];
+				}
+				vars.put(varName, scanner.nextLine());
 			}
 		}
 	}
-	
+
 	public static boolean isNumber(String s) {
 		try {
 			Double.parseDouble(s);
-		} catch(NumberFormatException e) {
+		} catch (NumberFormatException e) {
 			return false;
 		}
 		return true;
 	}
-	
+
 	public static boolean isLatinLetter(char c) {
 		return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
 	}
