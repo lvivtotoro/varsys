@@ -22,6 +22,7 @@ Commands in Varsys are single symbols:
 * `?` is for starting if statements (from 0.6)
 * `/` is for ending if statements (from 0.6)
 * `<` is for taking input (from 0.7)
+* 
 ### If Statements (from 0.6)
 If statements are quite easy, currently there is only the equals operator to use in an if statement (=):
     ?something=lol;
@@ -29,7 +30,7 @@ If statements are quite easy, currently there is only the equals operator to use
     /
 The `?` operator starts an if statement.  
 You may compare strings and numbers.  
-If the if statement is true then it prints "something is lol!".
+If the if statement is true then it prints "something is lol!".  
 The `/` operator ends the if statement.
 
 ### When to use the Semi-colon
