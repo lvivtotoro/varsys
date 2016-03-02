@@ -25,19 +25,20 @@ Commands in Varsys are single symbols:
 
 
 ### If Statements (from 0.6)
-If statements are quite easy, currently there is only the equals operator to use in an if statement (=):
+If statements are quite easy, currently there is only the equals operator to use in an if statement (=):  
+
     ?something=lol;
     >"something is lol!";
     /
 The `?` operator starts an if statement.  
 You may compare strings and numbers.  
 If the if statement is true then it prints "something is lol!".  
-The `/` operator ends the if statement.
+The `/` operator ends the if statement.  
 
 ### When to use the Semi-colon
-Some operators don't require any semi-colons.
-These operators are the ones that don't require additional data to work such as ! @
-For these operators to function you must put a new line instead.
+Some operators don't require any semi-colons.  
+These operators are the ones that don't require additional data to work such as `!` or `@`  
+For these operators to function you must put a new line instead.  
 
 ## Automatically Generated Variables
 When performing certain commands AGVs may be created.  
@@ -45,6 +46,7 @@ There is currently only one:
 * whileIndex - Is created when a while loop has started and deletes itself when the loop has ended. whileIndex holds the amount of times a loop was completed.
 
 ## Examples
+
     @
     !
     @
@@ -57,11 +59,11 @@ This program sets variable "value" to the value var then prints it.
 
     =#var 70000;
     >var;
-This is like the last program, but with integers.
+This is like the last program, but with doubles (due to when comparing these values they turn into text 70000 will turn into 70000.0
 
     >"Muhaha";
     >#999;
-This program first prints "Muhaha" then prints 999.
+This program first prints "Muhaha" then prints 999.0
 
     @
     >whileIndex;
